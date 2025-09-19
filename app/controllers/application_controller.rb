@@ -1,5 +1,11 @@
 class ApplicationController < ActionController::Base
+  include Pundit::Authorization
+
   helper_method :current_user, :logged_in?
+
+  rescue_from Pundit::NotAuthorizedError do
+    redirect_to root_path, alert: "Nicht berechtigt."
+  end
 
   private
 

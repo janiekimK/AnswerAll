@@ -21,4 +21,8 @@ Rails.application.routes.draw do
   resource :profile, only: [:show, :edit, :update]
   resources :users, only: [:new, :create]
   get 'confirm_email', to: 'profiles#confirm_email'
+
+  namespace :admin do
+    resources :users, only: [:index, :edit, :update]
+  end
 end
