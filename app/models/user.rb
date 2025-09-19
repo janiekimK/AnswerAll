@@ -8,4 +8,6 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
   validates :role, inclusion: { in: %w[user admin] }
+
+  validates :password, length: { minimum: 12 }, if: -> { password.present? }
 end

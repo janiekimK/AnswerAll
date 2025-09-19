@@ -24,5 +24,15 @@
 
   <body>
     <%= yield %>
+    <% if logged_in? %>
+  <p>
+    Eingeloggt als <%= current_user.name %> |
+    <%= link_to "Logout", session_path, method: :delete %>
+  </p>
+<% else %>
+  <%= link_to "Login", new_session_path %> |
+  <%= link_to "Registrieren", new_user_path %>
+<% end %>
+
   </body>
 </html>

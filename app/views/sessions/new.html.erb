@@ -1,0 +1,23 @@
+<h1>Login</h1>
+
+<%= form_with url: sessions_path, local: true do |form| %>
+  <% if flash[:alert] %>
+    <div style="color: red;">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :email, "E-Mail" %><br>
+    <%= form.email_field :email, required: true %>
+  </div>
+
+  <div>
+    <%= form.label :password, "Passwort" %><br>
+    <%= form.password_field :password, required: true %>
+  </div>
+
+  <div>
+    <%= form.submit "Einloggen" %>
+  </div>
+<% end %>
