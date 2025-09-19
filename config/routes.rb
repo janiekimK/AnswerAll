@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
+  root "dashboard#index"
   get "dashboard/index"
   get "sessions/new"
-  get "sessions/create"
-  get "sessions/destroy"
   get "users/new"
   get "users/create"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -19,5 +18,7 @@ Rails.application.routes.draw do
   # root "posts#index"
   get 'dashboard', to: 'dashboard#index', as: 'dashboard'
   resource :session, only: [:new, :create, :destroy]
-
+  resource :profile, only: [:show, :edit, :update]
+  resources :users, only: [:new, :create]
+  get 'confirm_email', to: 'profiles#confirm_email'
 end

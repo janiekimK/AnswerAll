@@ -1,0 +1,48 @@
+<h1>Profil bearbeiten</h1>
+
+<%= form_with model: @user, url: profile_path, method: :patch, local: true do |form| %>
+  <% if @user.errors.any? %>
+    <div style="color: red;">
+      <h2><%= pluralize(@user.errors.count, "Fehler") %> verhinderten die Aktualisierung:</h2>
+      <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, "Name" %><br>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :email, "Neue E-Mail (Bestätigung erforderlich)" %><br>
+    <%= form.email_field :email, value: nil, placeholder: @user.email %>
+  </div>
+
+  <hr>
+
+  <div>
+    <%= form.label :password, "Neues Passwort (optional)" %><br>
+    <%= form.password_field :password, autocomplete: "new-password" %>
+    <small>Mindestens 12 Zeichen. Leer lassen, um das Passwort nicht zu ändern.</small>
+  </div>
+
+  <div>
+    <%= form.label :password_confirmation, "Passwort bestätigen" %><br>
+    <%= form.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <hr>
+
+  <div>
+    <%= form.label :current_password, "Aktuelles Passwort" %><br>
+    <%= form.password_field :current_password, required: true, autocomplete: "current-password" %>
+  </div>
+
+  <div>
+    <%= form.submit "Speichern" %>
+  </div>
+<% end %>

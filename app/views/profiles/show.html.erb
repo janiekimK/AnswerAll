@@ -1,0 +1,12 @@
+<h1>Mein Profil</h1>
+
+<p><strong>Name:</strong> <%= @user.name %></p>
+<p><strong>E-Mail:</strong> <%= @user.email %></p>
+
+<% if @user.unconfirmed_email.present? %>
+  <p style="color: #b58900;">
+    Neue E-Mail ausstehend: <%= @user.unconfirmed_email %> (Bitte Bestätigungslink aus den Logs aufrufen)
+  </p>
+<% end %>
+
+<%= link_to "Profil bearbeiten", edit_profile_path %>

@@ -1,6 +1,6 @@
 <h1>Login</h1>
 
-<%= form_with url: sessions_path, local: true do |form| %>
+<%= form_with url: session_path, method: :post, local: true do |form| %>
   <% if flash[:alert] %>
     <div style="color: red;">
       <%= flash[:alert] %>
