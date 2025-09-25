@@ -1,10 +1,8 @@
 <h1>Fragen</h1>
 
-<%= form_with url: questions_path, method: :get, local: true do |f| %>
-  <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
-    <%= f.text_field :q, value: @q, placeholder: "Suche...", style: "flex: 1;" %>
-    <%= f.submit "Suchen" %>
-  </div>
+<%= form_with url: questions_path, method: :get, local: true, class: "search-form" do |f| %>
+  <%= f.text_field :q, value: @q, placeholder: "Suche..." %>
+  <%= f.submit "Suchen" %>
 <% end %>
 
 <% if logged_in? %>
@@ -13,7 +11,7 @@
   </div>
 <% end %>
 
-<ul>
+<ul class="question-list">
   <% @questions.each do |q| %>
     <li>
       <%= link_to q.title, question_path(q) %>
