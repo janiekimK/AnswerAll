@@ -1,4 +1,6 @@
 class Question < ApplicationRecord
+  audited
+
   belongs_to :user
   has_many :answers, dependent: :destroy
 

@@ -1,0 +1,43 @@
+<h1><%= @question.title %></h1>
+<p><%= @question.description %></p>
+<p><small>von <%= @question.user.name %></small></p>
+
+<% if logged_in? && (current_user.id == @question.user_id || current_user.role_admin?) %>
+  <p>
+    <%= link_to "Bearbeiten", edit_question_path(@question) %> |
+    <%= button_to "Löschen", question_path(@question), method: :delete, form: { data: { turbo_confirm: "Sicher?" } } %>
+  </p>
+<% end %>
+
+<h2>Antworten</h2>
+<ul>
+  <% @question.answers.includes(:user, :votes).each do |a| %>
+    <li>
+      <p><%= a.description %></p>
+      <p><small>von <%= a.user.name %></small></p>
+      <p>
+        <% total = a.votes.sum(:value) %>
+        <strong>Votes:</strong> <%= total %>
+        <% if logged_in? %>
+          <%= button_to "Upvote", vote_up_question_path(@question, answer_id: a.id), method: :post %>
+          <%= button_to "Entfernen", unvote_question_path(@question, answer_id: a.id), method: :delete %>
+        <% end %>
+      </p>
+    </li>
+  <% end %>
+</ul>
+
+<% if logged_in? %>
+  <h3>Antwort hinzufügen</h3>
+  <%= form_with model: [@question, Answer.new], url: question_answers_path(@question), local: true do |f| %>
+    <div>
+      <%= f.label :description, "Antwort" %><br>
+      <%= f.text_area :description, required: true %>
+    </div>
+    <div>
+      <%= f.submit "Antwort posten" %>
+    </div>
+  <% end %>
+<% else %>
+  <p><%= link_to "Einloggen", new_session_path %>, um zu antworten oder zu voten.</p>
+<% end %>

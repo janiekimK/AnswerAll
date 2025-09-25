@@ -1,0 +1,12 @@
+<h1>Aktivitäten</h1>
+
+<ul>
+  <% @audits.each do |a| %>
+    <li>
+      <strong><%= a.auditable_type %></strong> #<%= a.auditable_id %>
+      – <%= a.action %>
+      – von <%= a.user&.name || "System" %>
+      – <%= l(a.created_at, format: :short) rescue a.created_at %>
+    </li>
+  <% end %>
+</ul>

@@ -3,9 +3,12 @@ module Admin
     before_action :require_login
     before_action :set_user, only: [:edit, :update]
 
+    after_action :verify_authorized, except: :index
+    after_action :verify_policy_scoped, only: :index
+
     def index
+      @users = policy_scope([:admin, User]).order(:name)
       authorize [:admin, User]
-      @users = User.order(:name)
     end
 
     def edit

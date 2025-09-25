@@ -1,0 +1,23 @@
+<h1>Frage erstellen</h1>
+
+<%= form_with model: @question, local: true do |f| %>
+  <% if @question.errors.any? %>
+    <div style="color:red;">
+      <%= @question.errors.full_messages.to_sentence %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :title, "Titel" %><br>
+    <%= f.text_field :title, required: true %>
+  </div>
+
+  <div>
+    <%= f.label :description, "Beschreibung" %><br>
+    <%= f.text_area :description, required: true %>
+  </div>
+
+  <div>
+    <%= f.submit "Erstellen" %>
+  </div>
+<% end %>

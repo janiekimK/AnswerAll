@@ -22,7 +22,19 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :create]
   get 'confirm_email', to: 'profiles#confirm_email'
 
+  resources :questions do
+    resources :answers, only: [:create]
+    member do
+      post :vote_up, to: 'votes#create'
+      delete :unvote, to: 'votes#destroy'
+    end
+  end
+
+  resources :activities, only: [:index]
+
   namespace :admin do
     resources :users, only: [:index, :edit, :update]
+    resources :questions, only: [:destroy]
+    resources :answers, only: [:destroy]
   end
 end

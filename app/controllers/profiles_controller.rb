@@ -3,14 +3,17 @@ class ProfilesController < ApplicationController
 
   def show
     @user = current_user
+    authorize @user, policy_class: ProfilePolicy
   end
 
   def edit
     @user = current_user
+    authorize @user, policy_class: ProfilePolicy
   end
 
   def update
     @user = current_user
+    authorize @user, policy_class: ProfilePolicy
 
     unless @user.authenticate(params.dig(:user, :current_password).to_s)
       @user.errors.add(:current_password, "ist falsch")
