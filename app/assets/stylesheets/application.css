@@ -1,10 +1,50 @@
-/*
- * This is a manifest file that'll be compiled into application.css.
- *
- * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
- * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
- * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
- * depending on specificity.
- *
- * Consider organizing styles into separate files for maintainability.
- */
+/* Base Reset */
+*, *::before, *::after { box-sizing: border-box; }
+html { line-height: 1.5; -webkit-text-size-adjust: 100%; }
+body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji; color: #111; background: #f7f7f8; }
+
+/* Layout */
+body > * { max-width: 880px; margin: 0 auto; padding: 1rem; }
+
+/* Headings */
+h1, h2, h3 { line-height: 1.2; margin: 0.5rem 0; }
+
+/* Links & Buttons */
+a { color: #0b5ed7; text-decoration: none; }
+a:hover, a:focus { text-decoration: underline; }
+button, input[type="submit"], .button {
+  display: inline-block; background: #0b5ed7; color: #fff; border: none; border-radius: 6px;
+  padding: 0.5rem 0.9rem; cursor: pointer; font-size: 0.95rem;
+}
+button:hover, input[type="submit"]:hover, .button:hover { background: #094db2; }
+button:focus-visible, .button:focus-visible { outline: 3px solid #93c5fd; outline-offset: 2px; }
+
+/* Forms */
+label { font-weight: 600; }
+input[type="text"], input[type="email"], input[type="password"], textarea, select {
+  width: 100%; max-width: 640px; border: 1px solid #cbd5e1; border-radius: 6px; padding: 0.5rem 0.6rem; font-size: 1rem; background: #fff;
+}
+input:focus, textarea:focus, select:focus { outline: 3px solid #93c5fd; outline-offset: 2px; border-color: #60a5fa; }
+small { color: #475569; }
+
+/* Flash messages */
+.flash { padding: 0.6rem 0.8rem; border-radius: 6px; margin: 0.5rem 0; }
+.flash.notice { background: #ecfeff; color: #0e7490; border: 1px solid #a5f3fc; }
+.flash.alert { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; margin: 1rem 0; background: #fff; }
+th, td { border: 1px solid #e2e8f0; padding: 0.5rem; text-align: left; }
+th { background: #f1f5f9; }
+
+/* Lists */
+ul { padding-left: 1.1rem; }
+
+/* Cards */
+.card { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1rem; margin: 1rem 0; }
+
+/* Nav */
+nav p a { margin-right: 0.5rem; }
+
+/* Containers */
+.container { background: transparent; }

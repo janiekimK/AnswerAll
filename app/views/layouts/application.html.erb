@@ -24,10 +24,10 @@
 
   <body>
     <% if flash[:notice] %>
-      <div style="color: green;"> <%= flash[:notice] %> </div>
+      <div class="flash notice"><%= flash[:notice] %></div>
     <% end %>
     <% if flash[:alert] %>
-      <div style="color: red;"> <%= flash[:alert] %> </div>
+      <div class="flash alert"><%= flash[:alert] %></div>
     <% end %>
 
     <%= yield %>
