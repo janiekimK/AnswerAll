@@ -31,7 +31,7 @@ class ProfilesController < ApplicationController
 
       if @user.update(updates)
         if @user.unconfirmed_email.present?
-          confirmation_link = "http://localhost:3000/confirm_email?token=#{@user.confirmation_token}"
+          confirmation_link = "#{request.base_url}/confirm_email?token=#{@user.confirmation_token}"
           Rails.logger.debug "Email confirmation link: #{confirmation_link}"
         end
         redirect_to profile_path, notice: "Profil erfolgreich aktualisiert"

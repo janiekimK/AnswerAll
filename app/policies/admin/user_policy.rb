@@ -1,20 +1,20 @@
 module Admin
   class UserPolicy < Struct.new(:user, :record)
     def index?
-      user&.admin?
+      user&.role_admin?
     end
 
     def edit?
-      user&.admin?
+      user&.role_admin?
     end
 
     def update?
-      user&.admin?
+      user&.role_admin?
     end
 
     class Scope < Struct.new(:user, :scope)
       def resolve
-        user&.admin? ? scope.all : scope.none
+        user&.role_admin? ? scope.all : scope.none
       end
     end
   end
