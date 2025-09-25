@@ -3,6 +3,9 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user, :logged_in?
 
+  # Prevent caching of authenticated pages to avoid back button security issues
+  before_action :set_cache_headers
+
   rescue_from Pundit::NotAuthorizedError do
     redirect_to root_path, alert: "Nicht berechtigt."
   end
@@ -20,6 +23,15 @@ class ApplicationController < ActionController::Base
   def require_login
     unless logged_in?
       redirect_to new_session_path, alert: "Bitte zuerst einloggen"
+    end
+  end
+
+  def set_cache_headers
+    # Prevent caching of authenticated pages to avoid back button security issues
+    if logged_in?
+      response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate, private'
+      response.headers['Pragma'] = 'no-cache'
+      response.headers['Expires'] = '0'
     end
   end
 end

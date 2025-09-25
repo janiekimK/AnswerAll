@@ -23,6 +23,25 @@
   </head>
 
   <body>
+    <!-- Top navigation bar -->
+    <div class="top-nav">
+      <div class="nav-content">
+        <div class="nav-left">
+          <%= link_to "Answer All", root_path, class: "logo" %>
+        </div>
+        <div class="nav-right">
+          <% if logged_in? %>
+            <span class="user-info">Eingeloggt als <strong><%= current_user.name %></strong></span>
+            <%= link_to "Dashboard", dashboard_path, class: "button nav-button" %>
+            <%= button_to "Logout", session_path, method: :delete, form: { data: { turbo_confirm: "Sicher abmelden?" }, class: "button nav-button" } %>
+          <% else %>
+            <%= link_to "Login", new_session_path, class: "button nav-button" %>
+            <%= link_to "Registrieren", new_user_path, class: "button nav-button" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
     <% if flash[:notice] %>
       <div class="flash notice"><%= flash[:notice] %></div>
     <% end %>
@@ -31,19 +50,6 @@
     <% end %>
 
     <%= yield %>
-    <% if logged_in? %>
-  <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #E6E6E6;">
-    <p>Eingeloggt als <strong><%= current_user.name %></strong></p>
-    <%= button_to "Logout", session_path, method: :delete, form: { data: { turbo_confirm: "Sicher abmelden?" } } %>
-  </div>
-<% else %>
-  <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #E6E6E6;">
-    <div class="nav-buttons">
-      <%= link_to "Login", new_session_path, class: "button" %>
-      <%= link_to "Registrieren", new_user_path, class: "button" %>
-    </div>
-  </div>
-<% end %>
 
   </body>
 </html>

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root "dashboard#index"
+  root "questions#index"
   get "dashboard/index"
   get "sessions/new"
   get "users/new"

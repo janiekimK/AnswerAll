@@ -7,8 +7,25 @@ class QuestionsController < ApplicationController
 
   def index
     @q = params[:q].to_s.strip
-    scope = policy_scope(Question.includes(:user).order(created_at: :desc))
-    @questions = @q.present? ? scope.where("title LIKE ? OR description LIKE ?", "%#{@q}%", "%#{@q}%") : scope
+    @search_type = params[:search_type] || 'questions'
+    
+    if @q.present?
+      if @search_type == 'answers'
+        # Search in answers and return questions that have matching answers
+        @questions = policy_scope(Question.joins(:answers)
+          .where("answers.description LIKE ?", "%#{@q}%")
+          .includes(:user, :answers)
+          .distinct
+          .order(created_at: :desc))
+      else
+        # Search in questions (title and description)
+        @questions = policy_scope(Question.includes(:user)
+          .where("title LIKE ? OR description LIKE ?", "%#{@q}%", "%#{@q}%")
+          .order(created_at: :desc))
+      end
+    else
+      @questions = policy_scope(Question.includes(:user).order(created_at: :desc))
+    end
   end
 
   def show

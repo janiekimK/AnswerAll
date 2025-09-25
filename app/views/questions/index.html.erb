@@ -1,13 +1,35 @@
 <h1>Fragen</h1>
 
+<% if @q.present? %>
+  <div class="search-results-header">
+    <p>
+      <% if @search_type == 'answers' %>
+        <strong>Suchergebnisse in Antworten:</strong> "<%= @q %>"
+      <% else %>
+        <strong>Suchergebnisse in Fragen:</strong> "<%= @q %>"
+      <% end %>
+    </p>
+  </div>
+<% end %>
+
 <%= form_with url: questions_path, method: :get, local: true, class: "search-form" do |f| %>
   <%= f.text_field :q, value: @q, placeholder: "Suche..." %>
+  <%= f.select :search_type, 
+      [['Fragen', 'questions'], ['Antworten', 'answers']], 
+      { selected: @search_type }, 
+      { class: "search-type-select" } %>
   <%= f.submit "Suchen" %>
 <% end %>
 
 <% if logged_in? %>
   <div style="margin-bottom: 1rem;">
     <%= link_to "Neue Frage", new_question_path, class: "button" %>
+  </div>
+<% else %>
+  <div style="margin-bottom: 1rem; padding: 1rem; background: #F8C8DC; border-radius: 8px; text-align: center;">
+    <p style="margin: 0 0 0.5rem 0; color: #333;">Möchten Sie eine Frage stellen oder antworten?</p>
+    <%= link_to "Jetzt einloggen", new_session_path, class: "button" %>
+    <%= link_to "Registrieren", new_user_path, class: "button" %>
   </div>
 <% end %>
 
@@ -16,6 +38,9 @@
     <li>
       <%= link_to q.title, question_path(q) %>
       <small>von <%= q.user.name %></small>
+      <% if @search_type == 'answers' && @q.present? %>
+        <small class="search-context">(Gefunden in Antworten)</small>
+      <% end %>
     </li>
   <% end %>
 </ul>

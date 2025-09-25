@@ -1,43 +1,76 @@
-<h1><%= @question.title %></h1>
-<p><%= @question.description %></p>
-<p><small>von <%= @question.user.name %></small></p>
-
-<% if logged_in? && (current_user.id == @question.user_id || current_user.role_admin?) %>
-  <p>
-    <%= link_to "Bearbeiten", edit_question_path(@question) %> |
-    <%= button_to "Löschen", question_path(@question), method: :delete, form: { data: { turbo_confirm: "Sicher?" } } %>
-  </p>
-<% end %>
+<!-- Question Box -->
+<div class="question-box">
+  <h1 class="question-title"><%= @question.title %></h1>
+  <div class="question-content">
+    <p class="question-description"><%= @question.description %></p>
+    <div class="question-meta">
+      <small>von <strong><%= @question.user.name %></strong></small>
+    </div>
+  </div>
+  
+  <% if logged_in? && (current_user.id == @question.user_id || current_user.role_admin?) %>
+    <div class="question-actions">
+      <%= link_to "Bearbeiten", edit_question_path(@question), class: "button" %>
+      <%= button_to "Löschen", question_path(@question), method: :delete, form: { data: { turbo_confirm: "Sicher?" }, class: "button danger" } %>
+    </div>
+  <% end %>
+</div>
 
 <h2>Antworten</h2>
-<ul>
-  <% @question.answers.includes(:user, :votes).each do |a| %>
-    <li>
-      <p><%= a.description %></p>
-      <p><small>von <%= a.user.name %></small></p>
-      <p>
-        <% total = a.votes.sum(:value) %>
-        <strong>Votes:</strong> <%= total %>
-        <% if logged_in? %>
-          <%= button_to "Upvote", vote_up_question_path(@question, answer_id: a.id), method: :post %>
-          <%= button_to "Entfernen", unvote_question_path(@question, answer_id: a.id), method: :delete %>
-        <% end %>
-      </p>
-    </li>
-  <% end %>
-</ul>
+
+<% if @question.answers.any? %>
+  <div class="answers-list">
+    <% @question.answers.includes(:user, :votes).left_joins(:votes).group('answers.id').order(Arel.sql('COALESCE(SUM(votes.value), 0) DESC, answers.created_at ASC')).each do |a| %>
+      <div class="answer-box">
+        <div class="answer-content">
+          <p class="answer-description"><%= a.description %></p>
+          <div class="answer-meta">
+            <small>von <strong><%= a.user.name %></strong></small>
+          </div>
+        </div>
+        
+        <div class="answer-voting">
+          <% total = a.votes.sum(:value) %>
+          <div class="vote-count">
+            <strong>Votes:</strong> <%= total %>
+          </div>
+          <div class="vote-actions">
+            <% if logged_in? %>
+              <%= button_to "Upvote", vote_up_question_path(@question, answer_id: a.id), method: :post, class: "button small" %>
+              <%= button_to "Entfernen", unvote_question_path(@question, answer_id: a.id), method: :delete, class: "button small" %>
+            <% else %>
+              <small style="color: #666;">Einloggen zum Voten</small>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="no-answers">
+    <p>Noch keine Antworten vorhanden. Seien Sie der Erste!</p>
+  </div>
+<% end %>
 
 <% if logged_in? %>
-  <h3>Antwort hinzufügen</h3>
-  <%= form_with model: [@question, Answer.new], url: question_answers_path(@question), local: true do |f| %>
-    <div>
-      <%= f.label :description, "Antwort" %><br>
-      <%= f.text_area :description, required: true %>
-    </div>
-    <div>
-      <%= f.submit "Antwort posten" %>
-    </div>
-  <% end %>
+  <div class="answer-form-box">
+    <h3>Antwort hinzufügen</h3>
+    <%= form_with model: [@question, Answer.new], url: question_answers_path(@question), local: true do |f| %>
+      <div class="form-group">
+        <%= f.label :description, "Ihre Antwort" %><br>
+        <%= f.text_area :description, required: true, rows: 4, placeholder: "Schreiben Sie hier Ihre Antwort..." %>
+      </div>
+      <div class="form-actions">
+        <%= f.submit "Antwort posten", class: "button" %>
+      </div>
+    <% end %>
+  </div>
 <% else %>
-  <p><%= link_to "Einloggen", new_session_path %>, um zu antworten oder zu voten.</p>
+  <div class="login-prompt-box">
+    <p>Möchten Sie antworten oder voten?</p>
+    <div class="login-actions">
+      <%= link_to "Jetzt einloggen", new_session_path, class: "button" %>
+      <%= link_to "Registrieren", new_user_path, class: "button" %>
+    </div>
+  </div>
 <% end %>
