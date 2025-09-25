@@ -2,7 +2,7 @@
 
 <%= form_with model: @user, url: profile_path, method: :patch, local: true do |form| %>
   <% if @user.errors.any? %>
-    <div style="color: red;">
+    <div class="flash alert">
       <h2><%= pluralize(@user.errors.count, "Fehler") %> verhinderten die Aktualisierung:</h2>
       <ul>
         <% @user.errors.full_messages.each do |msg| %>
@@ -12,33 +12,33 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :name, "Name" %><br>
+  <div class="form-group">
+    <%= form.label :name, "Name" %>
     <%= form.text_field :name %>
   </div>
 
-  <div>
-    <%= form.label :email, "Neue E-Mail (Bestätigung erforderlich)" %><br>
+  <div class="form-group">
+    <%= form.label :email, "Neue E-Mail (Bestätigung erforderlich)" %>
     <%= form.email_field :email, value: nil, placeholder: @user.email %>
   </div>
 
-  <hr>
+  <hr style="margin: 2rem 0; border: none; border-top: 1px solid #E6E6E6;">
 
-  <div>
-    <%= form.label :password, "Neues Passwort (optional)" %><br>
+  <div class="form-group">
+    <%= form.label :password, "Neues Passwort (optional)" %>
     <%= form.password_field :password, autocomplete: "new-password" %>
     <small>Mindestens 12 Zeichen. Leer lassen, um das Passwort nicht zu ändern.</small>
   </div>
 
-  <div>
-    <%= form.label :password_confirmation, "Passwort bestätigen" %><br>
+  <div class="form-group">
+    <%= form.label :password_confirmation, "Passwort bestätigen" %>
     <%= form.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 
-  <hr>
+  <hr style="margin: 2rem 0; border: none; border-top: 1px solid #E6E6E6;">
 
-  <div>
-    <%= form.label :current_password, "Aktuelles Passwort" %><br>
+  <div class="form-group">
+    <%= form.label :current_password, "Aktuelles Passwort" %>
     <%= form.password_field :current_password, required: true, autocomplete: "current-password" %>
   </div>
 

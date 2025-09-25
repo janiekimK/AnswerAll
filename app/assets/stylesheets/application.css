@@ -20,12 +20,17 @@ button:hover, input[type="submit"]:hover, .button:hover { background: #E7A6B8; c
 button:focus-visible, .button:focus-visible { outline: 3px solid #A7C7E7; outline-offset: 2px; }
 
 /* Forms */
-label { font-weight: 600; color: #E7A6B8; }
+label { font-weight: 600; color: #E7A6B8; display: block; margin-bottom: 0.5rem; }
 input[type="text"], input[type="email"], input[type="password"], textarea, select {
-  width: 100%; max-width: 640px; border: 1px solid #E6E6E6; border-radius: 8px; padding: 0.5rem 0.6rem; font-size: 1rem; background: #fff;
+  width: 100%; max-width: 640px; border: 1px solid #E6E6E6; border-radius: 8px; padding: 0.5rem 0.6rem; font-size: 1rem; background: #fff; margin-bottom: 1rem;
 }
 input:focus, textarea:focus, select:focus { outline: 3px solid #A7C7E7; outline-offset: 2px; border-color: #C9B6E4; }
-small { color: #666; }
+small { color: #666; display: block; margin-top: 0.25rem; }
+
+/* Form groups */
+.form-group { margin-bottom: 1.5rem; }
+.form-group label { margin-bottom: 0.5rem; }
+.form-group input, .form-group textarea, .form-group select { margin-bottom: 0; }
 
 /* Flash messages */
 .flash { padding: 0.6rem 0.8rem; border-radius: 8px; margin: 0.5rem 0; }
@@ -44,7 +49,9 @@ ul { padding-left: 1.1rem; }
 .card { background: #fff; border: 1px solid #E6E6E6; border-radius: 12px; padding: 1rem; margin: 1rem 0; box-shadow: 0 2px 4px rgba(248, 200, 220, 0.1); }
 
 /* Nav */
-nav p a { margin-right: 0.5rem; }
+nav { margin: 1.5rem 0; }
+nav .nav-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+nav .nav-buttons a, nav .nav-buttons button { margin: 0; }
 
 /* Containers */
 .container { background: transparent; }

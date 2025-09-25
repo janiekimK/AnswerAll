@@ -32,13 +32,17 @@
 
     <%= yield %>
     <% if logged_in? %>
-  <p>
-    Eingeloggt als <%= current_user.name %> |
+  <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #E6E6E6;">
+    <p>Eingeloggt als <strong><%= current_user.name %></strong></p>
     <%= button_to "Logout", session_path, method: :delete, form: { data: { turbo_confirm: "Sicher abmelden?" } } %>
-  </p>
+  </div>
 <% else %>
-  <%= link_to "Login", new_session_path %> |
-  <%= link_to "Registrieren", new_user_path %>
+  <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #E6E6E6;">
+    <div class="nav-buttons">
+      <%= link_to "Login", new_session_path, class: "button" %>
+      <%= link_to "Registrieren", new_user_path, class: "button" %>
+    </div>
+  </div>
 <% end %>
 
   </body>

@@ -2,12 +2,12 @@
 <p>Dies ist dein Dashboard.</p>
 
 <nav>
-  <p>
-    <%= link_to "Fragen", questions_path %> |
-    <%= link_to "Aktivitäten", activities_path %> |
-    <%= link_to "Profil", profile_path %>
+  <div class="nav-buttons">
+    <%= link_to "Fragen", questions_path, class: "button" %>
+    <%= link_to "Aktivitäten", activities_path, class: "button" %>
+    <%= link_to "Profil", profile_path, class: "button" %>
     <% if current_user.role_admin? %>
-      | <%= link_to "Benutzerverwaltung", admin_users_path %>
+      <%= link_to "Benutzerverwaltung", admin_users_path, class: "button" %>
     <% end %>
-  </p>
+  </div>
 </nav>

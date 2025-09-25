@@ -2,19 +2,19 @@
 
 <%= form_with model: @question, local: true do |f| %>
   <% if @question.errors.any? %>
-    <div style="color:red;">
+    <div class="flash alert">
       <%= @question.errors.full_messages.to_sentence %>
     </div>
   <% end %>
 
-  <div>
-    <%= f.label :title, "Titel" %><br>
+  <div class="form-group">
+    <%= f.label :title, "Titel" %>
     <%= f.text_field :title, required: true %>
   </div>
 
-  <div>
-    <%= f.label :description, "Beschreibung" %><br>
-    <%= f.text_area :description, required: true %>
+  <div class="form-group">
+    <%= f.label :description, "Beschreibung" %>
+    <%= f.text_area :description, required: true, rows: 4 %>
   </div>
 
   <div>
