@@ -43,6 +43,27 @@ rails server
 
 5. Auf http://localhost:3000 gehen
 
+6. Admin:
+
+Um neuen Admin zu setzen im Terminal:
+
+```bash
+rails console
+
+User.create!(
+  name: "Admin User",
+  email: "admin@example.com",
+  password: "your_secure_password_here",
+  password_confirmation: "your_secure_password_here",
+  role: "admin"
+)
+```
+
+Aktueller Test Admin:
+
+Email: admin@admin
+Passwort: adminadmin12
+
 ## Hauptfunktionen
 
 - User Authentifikation und Autorisierung
