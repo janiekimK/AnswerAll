@@ -1,24 +1,55 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# README.md
 
-Things you may want to cover:
+# AnswerAll
 
-* Ruby version
+AnwerAll ist eine Ruby Multi User Web Applikation, die Usern eine Platform gibt, Fragen jeglicher Art zu stellen und Antworten dazu zu geben.
 
-* System dependencies
+## System Anforderungen
 
-* Configuration
+- Ruby 3.x
+- Rails 8.0
+- SQLite3
+- Node.js & Yarn
 
-* Database creation
+## Setup Anleitung
 
-* Database initialization
+1. Repository clonen (oder als .zip downloaden):
 
-* How to run the test suite
+```bash
+git clone [https://github.com/janiekimK/AnswerAll]
+cd AnswerAll
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+2. Dependencies installieren:
 
-* Deployment instructions
+```bash
+bundle install
+yarn install
+```
 
-* ...
+3. Databanbank installieren:
+
+```bash
+rails db:create
+rails db:migrate
+rails db:seed
+```
+
+4. Server starten:
+
+```bash
+rails server
+```
+
+5. Auf http://localhost:3000 gehen
+
+## Hauptfunktionen
+
+- User Authentifikation und Autorisierung
+- Fragen und Antworten Management
+- Voting von Antworten
+- Aktivitätsprotokoll
+- Admin Dashboard
+- Email Bestätigung
