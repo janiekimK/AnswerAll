@@ -1,7 +1,5 @@
 # README
 
-# README.md
-
 # AnswerAll
 
 AnwerAll ist eine Ruby Multi User Web Applikation, die Usern eine Platform gibt, Fragen jeglicher Art zu stellen und Antworten dazu zu geben.
