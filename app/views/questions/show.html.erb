@@ -11,7 +11,7 @@
   <% if logged_in? && (current_user.id == @question.user_id || current_user.role_admin?) %>
     <div class="question-actions">
       <%= link_to "Bearbeiten", edit_question_path(@question), class: "button" %>
-      <%= button_to "Löschen", question_path(@question), method: :delete, form: { data: { turbo_confirm: "Sicher?" }, class: "button danger" } %>
+      <%= button_to "Löschen", question_path(@question), method: :delete, form: { data: { turbo_confirm: "Sicher?" }, class: "delete-form" }, class: "button" %>
     </div>
   <% end %>
 </div>
@@ -26,6 +26,12 @@
           <p class="answer-description"><%= a.description %></p>
           <div class="answer-meta">
             <small>von <strong><%= a.user.name %></strong></small>
+            <% if logged_in? && current_user.role_admin? %>
+              <div class="admin-actions" style="margin-top: 0.5rem;">
+                <%= button_to "Antwort löschen", admin_answer_path(a), method: :delete, 
+                    form: { data: { turbo_confirm: "Antwort wirklich löschen?" }, class: "admin-delete-form" }, class: "button small" %>
+              </div>
+            <% end %>
           </div>
         </div>
         

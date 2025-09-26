@@ -33,7 +33,7 @@
           <% if logged_in? %>
             <span class="user-info">Eingeloggt als <strong><%= current_user.name %></strong></span>
             <%= link_to "Dashboard", dashboard_path, class: "button nav-button" %>
-            <%= button_to "Logout", session_path, method: :delete, form: { data: { turbo_confirm: "Sicher abmelden?" }, class: "button nav-button" } %>
+            <%= button_to "Logout", session_path, method: :delete, form: { data: { turbo_confirm: "Sicher abmelden?" }, class: "nav-button-form" }, class: "button nav-button" %>
           <% else %>
             <%= link_to "Login", new_session_path, class: "button nav-button" %>
             <%= link_to "Registrieren", new_user_path, class: "button nav-button" %>

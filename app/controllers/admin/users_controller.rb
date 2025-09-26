@@ -15,14 +15,25 @@ module Admin
       authorize [:admin, @user]
     end
 
-    def update
-      authorize [:admin, @user]
+  def update
+    authorize [:admin, @user]
+    
+    # Handle password change if provided
+    if user_params[:password].present?
       if @user.update(user_params)
-        redirect_to admin_users_path, notice: "Benutzer aktualisiert"
+        redirect_to admin_users_path, notice: "Benutzer und Passwort erfolgreich aktualisiert"
+      else
+        render :edit, status: :unprocessable_entity
+      end
+    else
+      # Update without password
+      if @user.update(user_params.except(:password, :password_confirmation))
+        redirect_to admin_users_path, notice: "Benutzer erfolgreich aktualisiert"
       else
         render :edit, status: :unprocessable_entity
       end
     end
+  end
 
     private
 
@@ -31,7 +42,7 @@ module Admin
     end
 
     def user_params
-      params.require(:user).permit(:name, :email, :role)
+      params.require(:user).permit(:name, :email, :role, :password, :password_confirmation)
     end
   end
 end
